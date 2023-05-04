@@ -21,15 +21,31 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(createZeroFilledArr);
+
+  // console.log(votes);
+
+  function createZeroFilledArr() {
+    return Array(anecdotes.length).fill(0);
+  }
 
   const handleRandomAnecdote = () => {
     return setSelected(Math.floor(Math.random() * anecdotes.length));
   }
 
+  const handleVoteClick = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
+    console.log(copy);
+  }
+
   return (
     <div>
       {anecdotes[selected]}
+      <p>has {votes[selected]} votes</p>
 
+      <Button handleClick={handleVoteClick} text="vote" />
       <Button handleClick={handleRandomAnecdote} text="next anecdote" />
     </div>
   )
